@@ -18,41 +18,16 @@ const db = knex({
 db.select('*').from('users').then();
 
 const app = express();
-
-const dataBase = {
-    users: [
-        {
-            id: '123',
-            name: 'John',
-            email: 'john@gmail.com',
-            password: 'pw12345',
-            entries: 0,
-            joined: new Date()
-        },
-        {
-            id: '456',
-            name: 'Sally',
-            email: 'sally@gmail.com',
-            password: 'pw67890',
-            entries: 0,
-            joined: new Date()
-        },
-    ],
-    login: [
-        {
-            id: "789",
-            email: 'john@gmail.com',
-            hash: ''
-        }
-    ]
-}
-
 app.use(cors())
 app.use(bodyParser.json())
 
 
 app.get('/', (req,res)=> {
-    res.json(dataBase.users)
+    db.select('*').from('users')
+    .then( users => {
+        res.send(users);
+    })
+    .catch(err => res.status(400).json("Unable to get users"))
 })
 
 app.post('/signIn', (req,res)=>{
@@ -123,10 +98,9 @@ app.get('/profile/:id', (req,res)=>{
 app.put('/image', (req,res) => {
     
     const {id} = req.body;
-    db('users').where({ id: id }).returning('id').increment({entries: 1})
+    db('users').where({ id: id }).returning('entries').increment({entries: 1})
     .then(entries => {
-        console.log(entries[0])
-        res.json(entries[0])
+        res.json(entries[0].entries)
     })
     .catch(err => res.status(400).json('Unable to get entries'));
 })
@@ -139,12 +113,3 @@ app.put('/image', (req,res) => {
 app.listen(3000, ()=> {
     console.log('app is running on port 3000')
 })
-
-/*
-
---> Res = this is working
-/signIn - POST - success/fail
-/register - POST - user
-/profile/:userId - GET - user
-/image - PUT - user profile update
-*/
