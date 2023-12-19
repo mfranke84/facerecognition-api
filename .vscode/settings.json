@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/5723f1bd-3554-40fe-b332-19feb458cf9c/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/smart-brain-api",
+    "appService.deploySubpath": "."
+}

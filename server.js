@@ -8,6 +8,7 @@ const register = require('./controllers/register');
 const signIn = require('./controllers/signin');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
+const port = process.env.PORT;
 
 const db = knex({
     client: 'pg',
@@ -25,13 +26,7 @@ app.use(cors())
 app.use(bodyParser.json()) 
 
 
-app.get('/', (req,res)=> {
-    db.select('*').from('users')
-    .then( users => {
-        res.send(users);
-    })
-    .catch(err => res.status(400).json("Unable to get users"))
-})
+app.get('/', (req,res)=> {res.json("Wow! I just deployed my first app to an Azure Environment! Super cool!")})
 
 app.post('/signIn', (req, res) => { signIn.handleSignIn(req, res, db, bcrypt)} )
 
@@ -44,6 +39,6 @@ app.put('/image', (req, res) => {image.handleImageCount(req, res, db)})
 app.post('/imageurl', (req,res) => {image.handleAPICall(req,res)})
 
 // Start App
-app.listen(3000, ()=> {
-    console.log('app is running on port 3000')
+app.listen(port, ()=> {
+    console.log(`App is running on port: ${port}`);
 })
