@@ -17,7 +17,8 @@ const db = knex({
       port : 5432,
       user : 'database_user',
       password : 'LeMoSQL@23',
-      database : 'smart-brain'
+      database : 'smart-brain',
+      ssl: true
     }
   });
 
