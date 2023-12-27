@@ -17,10 +17,10 @@ const handleSignIn = (req, res, db, bcrypt)  => {
             .catch(err => res.status(400).json("Unable to get user"))
         }
         else {
-            res.status(403).json("Wrong password");
+            res.status(403).json("Wrong password! Please try with another password!");
         }
     })
-    .catch(err => res.status(400).json("User not found"))
+    .catch(err => res.status(400).json("User not found! Please try another email!"))
 }
 
 module.exports = {
