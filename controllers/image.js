@@ -12,9 +12,10 @@ async function handleAPICall(req,res){
     const USER_ID = 'clarifai';       
     const APP_ID = 'main';
     // Change these to whatever model and image URL you want to use
-    const MODEL_ID = 'face-detection';
-    const MODEL_VERSION_ID = '6dc7e46bc9124c5c8824be4822abe105';    
-    //const IMAGE_URL = req.body.input;
+    const MODEL_ID = 'food-item-recognition';
+    const MODEL_VERSION_ID = '1d5fd481e0cf4826aa72ec3ff049e044';    
+    //const IMAGE_URL = 'https://samples.clarifai.com/metro-north.jpg'   
+    
     
     ///////////////////////////////////////////////////////////////////////////////////
     // YOU DO NOT NEED TO CHANGE ANYTHING BELOW THIS LINE TO RUN THIS EXAMPLE
@@ -51,6 +52,7 @@ async function handleAPICall(req,res){
     await fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
     .then(response => response.json())
     .then(data => {
+        
         res.json(data)
         }
     );
